@@ -7,12 +7,13 @@ import Product from "../components/Product";
 import { assets } from "../../assets/assets";
 
 const Collection = () => {
-  const { products, currency } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   console.log(products);
   const [showFilter, setShowFilter] = useState(false);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState([]);
+  const [sortType, setSortType] = useState("relevant");
 
   const handleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -21,10 +22,6 @@ const Collection = () => {
       setCategory((prev) => [...prev, e.target.value]);
     }
   };
-  useEffect(() => {
-    console.log(category);
-    applyFilter();
-  }, [category]);
 
   const handleSubCategory = (e) => {
     if (subCategory.includes(e.target.value)) {
@@ -33,27 +30,47 @@ const Collection = () => {
       setSubCategory((prev) => [...prev, e.target.value]);
     }
   };
-  useEffect(() => {
-    console.log(subCategory);
-    applyFilter();
-  }, [subCategory]);
 
-  const applyFilter = () => {
+  const applyFilterAndSort = () => {
     let productsCopy = products;
 
+    // Apply category filter
     if (category.length > 0) {
       productsCopy = productsCopy.filter((product) =>
         category.includes(product.category)
       );
     }
+    // Apply subcategory filter
     if (subCategory.length > 0) {
       productsCopy = productsCopy.filter((product) =>
         subCategory.includes(product.subCategory)
       );
     }
 
+    // Apply sorting to filtered array
+    switch (sortType) {
+      case "low":
+        setfilteredProducts(productsCopy.sort((a, b) => a.price - b.price));
+        break;
+      case "high":
+        setfilteredProducts(productsCopy.sort((a, b) => b.price - a.price));
+        break;
+      case "relevant":
+        setfilteredProducts(
+          productsCopy.sort((a, b) =>
+            a.bestseller === b.bestseller ? 0 : a.bestseller ? -1 : 1
+          )
+        );
+        break;
+      default:
+        break;
+    }
+
     setfilteredProducts(productsCopy);
   };
+  useEffect(() => {
+    applyFilterAndSort();
+  }, [category, subCategory, sortType, products]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-300">
@@ -172,7 +189,10 @@ const Collection = () => {
       <div className="flex-1">
         <div className="text-2xl flex justify-between mb-4">
           <Title firstText="ALL" secondText="COLLECTIONS" className="my-2" />
-          <select className="text-sm border-2 border-gray-300 p-2 cursor-pointer">
+          <select
+            className="text-sm border-2 border-gray-300 p-2 cursor-pointer"
+            onChange={(e) => setSortType(e.target.value)}
+          >
             <option value="relevant">Sort by: Relevant</option>
             <option value="low">Sort by: Low to High</option>
             <option value="high">Sort by: High to Low</option>

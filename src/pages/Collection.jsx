@@ -7,8 +7,7 @@ import Product from "../components/Product";
 import { assets } from "../../assets/assets";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
-  console.log(products);
+  const { products, showSearch, search } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
@@ -33,6 +32,13 @@ const Collection = () => {
 
   const applyFilterAndSort = () => {
     let productsCopy = products;
+
+    // Apply search filter
+    if (showSearch && search.trim() !== "") {
+      productsCopy = productsCopy.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
 
     // Apply category filter
     if (category.length > 0) {
@@ -70,7 +76,7 @@ const Collection = () => {
   };
   useEffect(() => {
     applyFilterAndSort();
-  }, [category, subCategory, sortType, products]);
+  }, [category, subCategory, sortType, products, search, showSearch]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-300">

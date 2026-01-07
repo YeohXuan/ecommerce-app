@@ -3,12 +3,13 @@ import { ShopContext } from "../context/ShopContext";
 import { assets } from "../../assets/assets";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const SearchBar = () => {
   const { search, setSearch, showSearch, setShowSearch } =
     useContext(ShopContext);
   const [isVisible, setIsVisible] = useState(false);
-  const location = window.location.pathname;
+  const location = useLocation().pathname;
 
   useEffect(() => {
     if (location.includes("collection")) {
@@ -28,11 +29,7 @@ const SearchBar = () => {
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
-        <img
-          src={assets.search_icon}
-          alt="search-icon"
-          className="w-4"
-        />
+        <img src={assets.search_icon} alt="search-icon" className="w-4" />
       </div>
       <img
         src={assets.cross_icon}

@@ -10,6 +10,7 @@ const Product = () => {
   const { products } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
+  const [size, setSize] = useState("");
   const { currency } = useContext(ShopContext);
 
   const fetchProductData = async () => {
@@ -63,21 +64,17 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">
-              <button className="px-4 py-2 bg-gray-100 border border-gray-200 cursor-pointer">
-                S
-              </button>
-              <button className="px-4 py-2 bg-gray-100 border border-gray-200 cursor-pointer">
-                M
-              </button>
-              <button className="px-4 py-2 bg-gray-100 border border-gray-200 cursor-pointer">
-                L
-              </button>
-              <button className="px-4 py-2 bg-gray-100 border border-gray-200 cursor-pointer">
-                XL
-              </button>
-              <button className="px-4 py-2 bg-gray-100 border border-gray-200 cursor-pointer">
-                XXL
-              </button>
+              {productData.sizes.map((itemSize, index) => (
+                <button
+                  key={index}
+                  className={`px-4 py-2 bg-gray-100 border ${size === itemSize ? "border-amber-500" : "border-gray-200"} cursor-pointer`}
+                  onClick={() => {
+                    setSize(itemSize);
+                  }}
+                >
+                  {itemSize}
+                </button>
+              ))}
             </div>
           </div>
           <button className="bg-gray-900 text-zinc-100 py-3 px-6 text-sm cursor-pointer">
@@ -118,6 +115,8 @@ const Product = () => {
           </p>
         </div>
       </div>
+
+      <div className="my-24"></div>
     </div>
   ) : null;
 };

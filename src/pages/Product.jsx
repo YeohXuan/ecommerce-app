@@ -4,6 +4,8 @@ import { ShopContext } from "../context/ShopContext";
 import { useState } from "react";
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
+import RelatedProducts from "../components/RelatedProducts";
+import Footer from "../components/Footer";
 
 const Product = () => {
   const { productId } = useParams();
@@ -88,6 +90,8 @@ const Product = () => {
           </div>
         </div>
       </div>
+
+      {/* Description and Reviews */}
       <div className="mt-20">
         <div className="flex">
           <b className="border border-gray-200 px-5 py-3 text-sm cursor-pointer">
@@ -116,7 +120,14 @@ const Product = () => {
         </div>
       </div>
 
-      <div className="my-24"></div>
+      {/* Related Products */}
+      <RelatedProducts
+        category={productData.category}
+        subCategory={productData.subCategory}
+      />
+
+      {/* Footer */}
+      <Footer />
     </div>
   ) : null;
 };

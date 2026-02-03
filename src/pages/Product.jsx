@@ -9,11 +9,10 @@ import Footer from "../components/Footer";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const { currency } = useContext(ShopContext);
 
   const fetchProductData = async () => {
     const product = products.find((item) => item._id === productId);
@@ -79,7 +78,10 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button className="bg-gray-900 text-zinc-100 py-3 px-6 text-sm cursor-pointer">
+          <button
+            className="bg-gray-900 text-zinc-100 py-3 px-6 text-sm cursor-pointer"
+            onClick={() => addToCart(productData._id, size)}
+          >
             ADD TO CART
           </button>
           <hr className="border-gray-300 mt-8 mb-5" />

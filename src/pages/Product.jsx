@@ -27,7 +27,7 @@ const Product = () => {
   }, [productId, products]);
 
   return productData ? (
-    <div className="border-t-2 border-gray-200 pt-10 transition-opacity ease-in duration-50 opacity-100">
+    <div className="border-t-2 border-gray-100 pt-10 transition-opacity ease-in duration-50 opacity-100">
       <div className="flex gap-12 flex-col sm:flex-row">
         <div className="flex flex-1 flex-col-reverse gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">

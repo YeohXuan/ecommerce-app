@@ -29,6 +29,18 @@ const ShopContextProvider = ({ children }) => {
     console.log(cartData);
   };
 
+  const getCartCount = () => {
+    let total = 0;
+
+    for (const itemId in cartItems) {
+      for (const size in cartItems[itemId]) {
+        total += cartItems[itemId][size];
+      }
+    }
+
+    return total;
+  };
+
   useEffect(() => {
     console.log("Cart Items Updated:", cartItems);
   }, [cartItems]);
@@ -43,6 +55,7 @@ const ShopContextProvider = ({ children }) => {
     setShowSearch,
     cartItems,
     addToCart,
+    getCartCount,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

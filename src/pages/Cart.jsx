@@ -4,11 +4,12 @@ import Title from "../components/Title";
 import { useState } from "react";
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
+import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity } =
     useContext(ShopContext);
-  const [cardData, setCardData] = useState([]);
+  const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
     const tempData = [];
@@ -25,7 +26,7 @@ const Cart = () => {
       }
     }
 
-    setCardData(tempData);
+    setCartData(tempData);
     console.log(tempData);
   }, [cartItems]);
 
@@ -34,7 +35,7 @@ const Cart = () => {
       <div className="mb-6 text-2xl">
         <Title firstText={"YOUR"} secondText={"CART"} />
       </div>
-      {cardData.map((item, index) => {
+      {cartData.map((item, index) => {
         const productData = products.find(
           (product) => product._id === item._id,
         );
@@ -84,6 +85,7 @@ const Cart = () => {
           </div>
         );
       })}
+      <CartTotal />
     </div>
   );
 };

@@ -52,7 +52,7 @@ const CartTotal = () => {
             <p className="flex justify-between font-bold">
               Total
               <p>
-                {currency} {totalAmount + shippingFee}.00
+                {currency} {totalAmount > 0 ? totalAmount + shippingFee : 0}.00
               </p>
             </p>
           </div>

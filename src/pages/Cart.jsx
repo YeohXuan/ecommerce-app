@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 import CartTotal from "../components/CartTotal";
+import Footer from "../components/Footer";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity } =
@@ -86,6 +87,7 @@ const Cart = () => {
         );
       })}
       <CartTotal />
+      <Footer />
     </div>
   );
 };

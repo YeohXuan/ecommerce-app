@@ -2,9 +2,11 @@ import { useState } from "react";
 import { assets } from "../../assets/assets";
 import CartTotal from "../components/CartTotal";
 import Title from "../components/Title";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t border-gray-300">
@@ -116,7 +118,7 @@ const PlaceOrder = () => {
             </div>
           </div>
           <div className="w-full text-end">
-            <button className="bg-black text-[#f2f8fc] px-8 py-3 my-8 cursor-pointer text-sm">
+            <button className="bg-black text-[#f2f8fc] px-8 py-3 my-8 cursor-pointer text-sm" onClick={() => navigate("/orders")}>
               PLACE ORDER
             </button>
           </div>

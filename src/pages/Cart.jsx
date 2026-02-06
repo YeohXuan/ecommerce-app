@@ -6,11 +6,13 @@ import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 import CartTotal from "../components/CartTotal";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity } =
     useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tempData = [];
@@ -86,7 +88,17 @@ const Cart = () => {
           </div>
         );
       })}
-      <CartTotal />
+      <div className="my-20">
+        <CartTotal />
+        <div className="w-full text-end">
+          <button
+            className="bg-black text-[#f2f8fc] px-6 py-3 my-8 cursor-pointer text-sm"
+            onClick={() => navigate("../place-order")}
+          >
+            PROCEED TO CHECKOUT
+          </button>
+        </div>
+      </div>
       <Footer />
     </div>
   );

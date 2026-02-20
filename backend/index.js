@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
+import userRouter from "./routes/userRoute.js";
 
 // App setup
 const app = express();
@@ -19,6 +20,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send(`Port ${5001} active`);
 });
+
+app.use("/api/user", userRouter);
 
 app.listen(port, () => {
   console.log(`\x1b[32mServer running on port: ${port}\x1b[0m`);

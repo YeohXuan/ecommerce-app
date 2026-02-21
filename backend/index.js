@@ -26,5 +26,3 @@ app.use("/api/user", userRouter);
 app.listen(port, () => {
   console.log(`\x1b[32mServer running on port: ${port}\x1b[0m`);
 });
-
-//llLglODj5rPM2eUS

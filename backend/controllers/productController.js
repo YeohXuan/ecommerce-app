@@ -25,9 +25,9 @@ const addProduct = async (req, res) => {
       price,
       category,
       subCategory,
-      price: Number(price),
-      sizes: JSON.parse(sizes),
-      bestSeller: bestSeller === "true",
+      price: Number(req.body.price),
+      sizes: req.body.sizes ? JSON.parse(req.body.sizes) : [],
+      bestSeller: req.body.bestSeller === "true",
       date: Date.now(),
     });
     await product.save();
